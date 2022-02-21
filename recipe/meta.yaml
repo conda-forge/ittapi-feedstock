@@ -17,6 +17,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}  # [not win]
     - cmake
+    - make  # [linux]
 # ittapi is a static library, so it has neither host nor run dependencies
 test:
   commands:
