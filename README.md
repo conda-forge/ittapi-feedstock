@@ -1,11 +1,11 @@
-About ittapi
-============
+About ittapi-feedstock
+======================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ittapi-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/intel/ittapi
 
 Package license: GPL-2.0-only OR BSD-3-Clause
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ittapi-feedstock/blob/main/LICENSE.txt)
 
 Summary: Intel® Instrumentation and Tracing Technology (ITT) and Just-In-Time (JIT) API
 
