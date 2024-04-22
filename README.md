@@ -190,4 +190,5 @@ Feedstock Maintainers
 =====================
 
 * [@ekovanova](https://github.com/ekovanova/)
+* [@vnlitvinov](https://github.com/vnlitvinov/)
 
