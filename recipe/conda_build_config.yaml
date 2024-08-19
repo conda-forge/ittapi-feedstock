@@ -1,8 +1,0 @@
-c_compiler: # [win]
-  - vs2022 # [win]
-cxx_compiler: # [win]
-  - vs2022 # [win]
-c_compiler: # [linux]
-  - gcc[version="==12.3.0"] # [linux]
-cxx_compiler: # [linux]
-  - gxx[version="==12.3.0"] # [linux]

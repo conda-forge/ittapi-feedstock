@@ -10,37 +10,55 @@ source:
   sha256: d01825ee713c0cea36c507462a7ce3809909f83068a13114ee38e15a45a4e0b3
 
 build:
-  missing_dso_whitelist:
-    - "*libstdc++.so*"
-    - "*libgcc_s.so*"
   number: 0
 
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
+    - {{ compiler('cxx') }}  # [not win]
+    - {{ stdlib("c") }}
+    - cmake
+    - make  # [linux]
   host:
-    - python >=3.8
+    - python
     - setuptools >=61.0
     - pip
   run:
-    - python >=3.8
-
+    - python
+  run_constrained:
+    - python >=3.7
+    
 test:
+  source_files:
+    - python/utest  # [not osx]
   imports:
-    - ittapi
+    - ittapi  # [not osx]
   commands:
+    - dir %LIBRARY_INC%\ittnotify.h  # [win]
+    - test -f ${PREFIX}/include/ittnotify.h  # [not win]
     - pip check
+    - pytest ./python/utest  # [not osx]
   requires:
     - pip
+    - pytest  # [not osx]
 
 about:
-  summary: Python bindings to Intel Instrumentation and Tracing Technology (ITT) API.
-  license: ''
+  home: https://github.com/intel/ittapi
+  license: GPL-2.0-only OR BSD-3-Clause
   license_file:
+    - BSD-3-Clause.txt
+    - GPL-2.0-only.txt
+  summary: Intel® Instrumentation and Tracing Technology (ITT) and Just-In-Time (JIT) API
+  description: |
+    This ITT/JIT open source profiling API includes:
+      - Instrumentation and Tracing Technology (ITT) API
+      - Just-In-Time (JIT) Profiling API
+    The Instrumentation and Tracing Technology (ITT) API enables your application to generate and control the collection of trace data during its execution across different Intel tools.
+    ITT API consists of two parts: a static part and a dynamic part. The dynamic part is specific for a tool and distributed only with a particular tool. The static part is a common part shared between tools. Currently, the static part of ITT API is distributed as a static library and released under a BSD/GPLv2 dual license with every tool supporting ITT API.
+  doc_url: https://github.com/intel/ittapi
+  dev_url: https://github.com/intel/ittapi
 
 extra:
   recipe-maintainers:
     - eparshut
     - ekovanova
-
