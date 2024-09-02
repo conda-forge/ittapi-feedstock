@@ -16,16 +16,9 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}
+    - {{ compiler('cxx') }}  # [not win]
     - cmake
     - make  # [linux]
-  host:
-    - python >=3.8
-    - setuptools >=61.0
-    - pip
-  run:
-    - python >=3.8
-
 # ittapi is a static library, so it has neither host nor run dependencies
 test:
   commands:
