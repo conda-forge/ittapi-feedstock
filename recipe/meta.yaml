@@ -1,13 +1,13 @@
 {% set name = "ittapi" %}
-{% set version = "3.25.1" %}
+{% set version = "3.25.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/intel/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 866a5a75a287a7440760146f99bd1093750c3fb5bf572c3bff2d4795628ebc7c
+  url: https://github.com/intel/{{ name }}/archive/refs/tags/v{{ version }}.zip
+  sha256: d01825ee713c0cea36c507462a7ce3809909f83068a13114ee38e15a45a4e0b3
 
 build:
   number: 0
@@ -16,9 +16,16 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}  # [not win]
+    - {{ compiler('cxx') }}
     - cmake
     - make  # [linux]
+  host:
+    - python >=3.8
+    - setuptools >=61.0
+    - pip
+  run:
+    - python >=3.8
+
 # ittapi is a static library, so it has neither host nor run dependencies
 test:
   commands:
