@@ -1,13 +1,13 @@
 {% set name = "ittapi" %}
-{% set version = "3.25.1" %}
+{% set version = "3.25.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/intel/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 866a5a75a287a7440760146f99bd1093750c3fb5bf572c3bff2d4795628ebc7c
+  url: https://github.com/intel/{{ name }}/archive/refs/tags/v{{ version }}.zip
+  sha256: d01825ee713c0cea36c507462a7ce3809909f83068a13114ee38e15a45a4e0b3
 
 build:
   number: 0
@@ -15,15 +15,32 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}  # [not win]
+    - {{ stdlib("c") }}
     - cmake
     - make  # [linux]
-# ittapi is a static library, so it has neither host nor run dependencies
+  host:
+    - python
+    - setuptools >=61.0
+    - pip
+  run:
+    - python
+  run_constrained:
+    - python >=3.7
+    
 test:
+  source_files:
+    - python/utest  # [not osx]
+  imports:
+    - ittapi  # [not osx]
   commands:
     - dir %LIBRARY_INC%\ittnotify.h  # [win]
     - test -f ${PREFIX}/include/ittnotify.h  # [not win]
+    - pip check
+    - pytest ./python/utest  # [not osx]
+  requires:
+    - pip
+    - pytest  # [not osx]
 
 about:
   home: https://github.com/intel/ittapi
@@ -36,9 +53,9 @@ about:
     This ITT/JIT open source profiling API includes:
       - Instrumentation and Tracing Technology (ITT) API
       - Just-In-Time (JIT) Profiling API
-
+    
     The Instrumentation and Tracing Technology (ITT) API enables your application to generate and control the collection of trace data during its execution across different Intel tools.
-
+    
     ITT API consists of two parts: a static part and a dynamic part. The dynamic part is specific for a tool and distributed only with a particular tool. The static part is a common part shared between tools. Currently, the static part of ITT API is distributed as a static library and released under a BSD/GPLv2 dual license with every tool supporting ITT API.
   doc_url: https://github.com/intel/ittapi
   dev_url: https://github.com/intel/ittapi
