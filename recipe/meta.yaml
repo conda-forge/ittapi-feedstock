@@ -20,13 +20,13 @@ requirements:
     - cmake
     - make  # [linux]
   host:
-    - python
-    - setuptools >=61.0
-    - pip
+    - python  # [not osx]
+    - setuptools >=61.0  # [not osx]
+    - pip  # [not osx]
   run:
-    - python
+    - python  # [not osx]
   run_constrained:
-    - python >=3.7
+    - python >=3.7  # [not osx]
     
 test:
   source_files:
