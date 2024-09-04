@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/intel/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 1d76613b29f4b7063dbb2b54e9ef902e36924c5dd016fee1d7b392b3d4ee66c2
+  url: https://github.com/intel/{{ name }}/archive/refs/tags/v{{ version }}.zip
+  sha256: d01825ee713c0cea36c507462a7ce3809909f83068a13114ee38e15a45a4e0b3
 
 build:
   number: 0
@@ -15,15 +15,32 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}  # [not win]
+    - {{ stdlib("c") }}
     - cmake
     - make  # [linux]
-# ittapi is a static library, so it has neither host nor run dependencies
+  host:
+    - python  # [not osx]
+    - setuptools >=61.0  # [not osx]
+    - pip  # [not osx]
+  run:
+    - python  # [not osx]
+  run_constrained:
+    - python >=3.7  # [not osx]
+    
 test:
+  source_files:
+    - python/utest  # [not osx]
+  imports:
+    - ittapi  # [not osx]
   commands:
     - dir %LIBRARY_INC%\ittnotify.h  # [win]
     - test -f ${PREFIX}/include/ittnotify.h  # [not win]
+    - pip check
+    - pytest ./python/utest  # [not osx]
+  requires:
+    - pip
+    - pytest  # [not osx]
 
 about:
   home: https://github.com/intel/ittapi

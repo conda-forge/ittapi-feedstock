@@ -20,3 +20,6 @@ copy /b /y %SRC_DIR%\include\jitprofiling.h %LIBRARY_INC% || exit /b !ERRORLEVEL
 copy /b /y %SRC_DIR%\include\libittnotify.h %LIBRARY_INC% || exit /b !ERRORLEVEL!
 
 popd
+
+:: Install python bindings for ITTAPI
+cd "%SRC_DIR%"\python && %PYTHON% -m pip install . -vv --no-deps --no-build-isolation

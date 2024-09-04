@@ -21,3 +21,9 @@ cp ${SRC_DIR}/include/ittnotify.h           \
         ${SRC_DIR}/include/jitprofiling.h   \
         ${SRC_DIR}/include/libittnotify.h   \
         ${PREFIX}/include
+
+# Install python bindings for ITTAPI only if it's a python machine
+if [[ $(uname -s) == *"Linux"* ]];
+then
+      cd ${SRC_DIR}/python && ${PYTHON} -m pip install . -vv --no-deps --no-build-isolation
+fi
