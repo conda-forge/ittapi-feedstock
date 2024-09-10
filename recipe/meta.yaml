@@ -1,5 +1,5 @@
 {% set name = "ittapi" %}
-{% set version = "3.25.2" %}
+{% set version = "3.25.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/{{ name }}/archive/refs/tags/v{{ version }}.zip
-  sha256: d01825ee713c0cea36c507462a7ce3809909f83068a13114ee38e15a45a4e0b3
+  sha256: b862c0c5eba4f0251cd5ee8c1e86befa40a6ef9f9a44942f31951ebb059a6dbf
 
 build:
   number: 0
@@ -27,7 +27,6 @@ requirements:
     - python  # [not osx]
   run_constrained:
     - python >=3.7  # [not osx]
-    
 test:
   source_files:
     - python/utest  # [not osx]
