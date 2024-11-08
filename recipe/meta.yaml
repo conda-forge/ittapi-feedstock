@@ -38,6 +38,8 @@ outputs:
         - dir %LIBRARY_INC%\ittnotify.h  # [win]
         - test -f ${PREFIX}/lib/libittnotify.a  # [not win]
         - test -f ${PREFIX}/include/ittnotify.h  # [not win]
+    about:
+      summary: Static C-Library of Intel® ITT/JIT API
 
   - name: {{ name|lower }}
     version: {{ version }}
@@ -71,6 +73,8 @@ outputs:
       requires:
         - pip
         - pytest  # [not osx]
+    about:
+      summary: Python bindings to Intel® ITT/JIT API
 
 about:
   home: https://github.com/intel/ittapi
@@ -78,7 +82,6 @@ about:
   license_file:
     - BSD-3-Clause.txt
     - GPL-2.0-only.txt
-  summary: Intel® Instrumentation and Tracing Technology (ITT) and Just-In-Time (JIT) API
   description: |
     This ITT/JIT open source profiling API includes:
       - Instrumentation and Tracing Technology (ITT) API
