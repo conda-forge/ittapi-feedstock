@@ -23,7 +23,8 @@ requirements:
 outputs:
   - name: {{ name|lower }}-static
     version: {{ version }}
-    script: install.sh
+    script: install.sh   # [linux]
+    script: install.bat  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -38,7 +39,8 @@ outputs:
 
   - name: {{ name|lower }}
     version: {{ version }}
-    script: install.sh
+    script: install.sh   # [linux]
+    script: install.bat  # [win]
     requirements:
       build:
         - {{ compiler('c') }}
