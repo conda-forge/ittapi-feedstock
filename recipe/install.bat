@@ -1,6 +1,10 @@
 SETLOCAL EnableDelayedExpansion
 
-cmake --install "%SRC_DIR%\build" --prefix="%PREFIX%" || exit /b !ERRORLEVEL!
+pushd "%SRC_DIR%" || exit /b !ERRORLEVEL!
+
+cmake --install ".\build" --prefix="%PREFIX%" || exit /b !ERRORLEVEL!
+
+popd
 
 if "%PKG_NAME%" == "ittapi" (
   :: Install python bindings for ITTAPI
