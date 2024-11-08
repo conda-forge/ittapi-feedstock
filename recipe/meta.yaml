@@ -10,7 +10,7 @@ source:
   sha256: b862c0c5eba4f0251cd5ee8c1e86befa40a6ef9f9a44942f31951ebb059a6dbf
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -34,7 +34,7 @@ outputs:
         - make  # [linux]
     test:
       commands:
-        - dir %LIBRARY_PREFIX%\lib\libittnotify.lib  # [win]
+        - dir %LIBRARY_LIB%\libittnotify.lib  # [win]
         - dir %LIBRARY_INC%\ittnotify.h  # [win]
         - test -f ${PREFIX}/lib/libittnotify.a  # [not win]
         - test -f ${PREFIX}/include/ittnotify.h  # [not win]
@@ -43,7 +43,8 @@ outputs:
     version: {{ version }}
     script: install.sh   # [unix]
     script: install.bat  # [win]
-    skip: True  # [osx]
+    build:
+      skip: True  # [osx]
     requirements:
       build:
         - {{ compiler('c') }}
