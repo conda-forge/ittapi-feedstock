@@ -2,7 +2,7 @@ SETLOCAL EnableDelayedExpansion
 
 pushd "%SRC_DIR%" || exit /b !ERRORLEVEL!
 
-cmake --install ".\build" --prefix="%PREFIX%" || exit /b !ERRORLEVEL!
+cmake --install ".\build" --prefix="%LIBRARY_PREFIX%" || exit /b !ERRORLEVEL!
 
 popd
 

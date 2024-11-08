@@ -34,13 +34,16 @@ outputs:
         - make  # [linux]
     test:
       commands:
+        - dir %LIBRARY_PREFIX%\lib\libittnotify.lib  # [win]
         - dir %LIBRARY_INC%\ittnotify.h  # [win]
+        - test -f ${PREFIX}/lib/libittnotify.a  # [not win]
         - test -f ${PREFIX}/include/ittnotify.h  # [not win]
 
   - name: {{ name|lower }}
     version: {{ version }}
     script: install.sh   # [unix]
     script: install.bat  # [win]
+    skip: True  # [osx]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -50,14 +53,12 @@ outputs:
         - make  # [linux]
       host:
         - {{ pin_subpackage(name|lower ~ '-static', exact=True) }}
-        - python  # [not osx]
-        - setuptools >=61.0  # [not osx]
-        - pip  # [not osx]
+        - python
+        - setuptools >=61.0
+        - pip
       run:
         - {{ pin_subpackage(name|lower ~ '-static', exact=True) }}
-        - python  # [not osx]
-      run_constrained:
-        - python >=3.7  # [not osx]
+        - python
     test:
       source_files:
         - python/utest  # [not osx]
