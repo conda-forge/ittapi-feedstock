@@ -2,7 +2,7 @@
 {% set version = "3.25.3" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name|lower }}-split
   version: {{ version }}
 
 source:
@@ -10,7 +10,7 @@ source:
   sha256: b862c0c5eba4f0251cd5ee8c1e86befa40a6ef9f9a44942f31951ebb059a6dbf
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -19,27 +19,62 @@ requirements:
     - {{ stdlib("c") }}
     - cmake
     - make  # [linux]
-  host:
-    - python  # [not osx]
-    - setuptools >=61.0  # [not osx]
-    - pip  # [not osx]
-  run:
-    - python  # [not osx]
-  run_constrained:
-    - python >=3.7  # [not osx]
-test:
-  source_files:
-    - python/utest  # [not osx]
-  imports:
-    - ittapi  # [not osx]
-  commands:
-    - dir %LIBRARY_INC%\ittnotify.h  # [win]
-    - test -f ${PREFIX}/include/ittnotify.h  # [not win]
-    - pip check
-    - pytest ./python/utest  # [not osx]
-  requires:
-    - pip
-    - pytest  # [not osx]
+
+outputs:
+  - name: {{ name|lower }}-static
+    version: {{ version }}
+    script: install.sh   # [unix]
+    script: install.bat  # [win]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}  # [not win]
+        - {{ stdlib("c") }}
+        - cmake
+        - make  # [linux]
+    test:
+      commands:
+        - dir %LIBRARY_LIB%\libittnotify.lib  # [win]
+        - dir %LIBRARY_INC%\ittnotify.h  # [win]
+        - test -f ${PREFIX}/lib/libittnotify.a  # [not win]
+        - test -f ${PREFIX}/include/ittnotify.h  # [not win]
+    about:
+      summary: Static C-Library of Intel® ITT/JIT API
+
+  - name: {{ name|lower }}
+    version: {{ version }}
+    script: install.sh   # [unix]
+    script: install.bat  # [win]
+    build:
+      skip: True  # [osx]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}  # [not win]
+        - {{ stdlib("c") }}
+        - cmake
+        - make  # [linux]
+      host:
+        - {{ pin_subpackage(name|lower ~ '-static', exact=True) }}
+        - python
+        - setuptools >=61.0
+        - pip
+      run:
+        - {{ pin_subpackage(name|lower ~ '-static', exact=True) }}
+        - python
+    test:
+      source_files:
+        - python/utest  # [not osx]
+      imports:
+        - ittapi  # [not osx]
+      commands:
+        - pip check
+        - pytest ./python/utest  # [not osx]
+      requires:
+        - pip
+        - pytest  # [not osx]
+    about:
+      summary: Python bindings to Intel® ITT/JIT API
 
 about:
   home: https://github.com/intel/ittapi
