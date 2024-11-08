@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/{{ name }}/archive/refs/tags/v{{ version }}.zip
-  sha256: b862c0c5eba4f0251cd5ee8c1e86befa40a6ef9f9a44942f31951ebb059a6dbf
+  sha256: d938ee1e816b996fe1536a38bf08cd4bf30f46f16f97471b1708d28659bc560d
 
 build:
   number: 1
