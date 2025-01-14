@@ -1,5 +1,5 @@
 {% set name = "ittapi" %}
-{% set version = "3.25.3" %}
+{% set version = "3.25.4" %}
 
 package:
   name: {{ name|lower }}-split
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://github.com/intel/{{ name }}/archive/refs/tags/v{{ version }}.zip
-  sha256: b862c0c5eba4f0251cd5ee8c1e86befa40a6ef9f9a44942f31951ebb059a6dbf
+  sha256: 32ad120e70184201fa16b325a195616f91da34786a9d3e4e1b6e69a99b5cdd8d
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
@@ -23,7 +23,7 @@ requirements:
 outputs:
   - name: {{ name|lower }}-static
     version: {{ version }}
-    script: install.sh   # [unix]
+    script: install.sh  # [unix]
     script: install.bat  # [win]
     requirements:
       build:
@@ -43,10 +43,10 @@ outputs:
 
   - name: {{ name|lower }}
     version: {{ version }}
-    script: install.sh   # [unix]
+    script: install.sh  # [unix]
     script: install.bat  # [win]
     build:
-      skip: True  # [osx]
+      skip: true  # [osx]
     requirements:
       build:
         - {{ compiler('c') }}
