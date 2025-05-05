@@ -26,15 +26,6 @@ The Instrumentation and Tracing Technology (ITT) API enables your application to
 ITT API consists of two parts: a static part and a dynamic part. The dynamic part is specific for a tool and distributed only with a particular tool. The static part is a common part shared between tools. Currently, the static part of ITT API is distributed as a static library and released under a BSD/GPLv2 dual license with every tool supporting ITT API.
 
 
-About ittapi-static
--------------------
-
-
-
-Package license: 
-
-Summary: Static C-Library of Intel® ITT/JIT API
-
 About ittapi
 ------------
 
@@ -43,6 +34,15 @@ About ittapi
 Package license: 
 
 Summary: Python bindings to Intel® ITT/JIT API
+
+About ittapi-static
+-------------------
+
+
+
+Package license: 
+
+Summary: Static C-Library of Intel® ITT/JIT API
 
 Current build status
 ====================
