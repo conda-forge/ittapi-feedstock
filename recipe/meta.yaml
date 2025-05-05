@@ -1,5 +1,5 @@
 {% set name = "ittapi" %}
-{% set version = "3.26.0" %}
+{% set version = "3.26.1" %}
 
 package:
   name: {{ name|lower }}-split
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/{{ name }}/archive/refs/tags/v{{ version }}.zip
-  sha256: 0a5331a7354b996588c80aca58c22f61405e788613c10da6903888aad16911ba
+  sha256: 7083d016d0baa633714c167b5101d0a301508f29d36e768baff1d5517968fa32
 
 build:
   number: 0
